@@ -13,6 +13,7 @@ services:
       - PASSWORD=
       - PIN=
       - VIN=
+      - LICENSE_PLATE=
       - INFLUXDB_TOKEN=
     networks:
       - influx-net
