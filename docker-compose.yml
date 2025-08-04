@@ -1,0 +1,22 @@
+version: '3.6'
+
+services:
+  kia_dashboard:
+    security_opt:
+      - seccomp:unconfined
+    image: mcfurry/kia_dashboard
+    restart: unless-stopped
+    ports:
+      - 88:8080
+    environment:
+      - USERNAME=
+      - PASSWORD=
+      - PIN=
+      - VIN=
+      - INFLUXDB_TOKEN=
+    networks:
+      - influx-net
+
+networks:
+  influx-net:
+    external: true
