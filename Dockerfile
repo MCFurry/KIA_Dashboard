@@ -7,6 +7,7 @@ RUN pip install \
     hyundai-kia-connect-api \
     influxdb-client \
     pandas \
+    pytz \
     requests
 
 # Temp fix for Kia EU, see: https://github.com/Hyundai-Kia-Connect/kia_uvo/discussions/1285
