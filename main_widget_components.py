@@ -6,16 +6,19 @@ from hyundai_kia_connect_api import *
 
 import globals
 
-map_fig = px.scatter_map(
-    globals.vehicle_pos,
-    lat='latitude',
-    lon='longitude',
-    hover_name='Vehicle',
-    map_style=globals.mapbox_style,
-    size=[12],
-    width=100,
-    height=100,
-)
+
+def create_map():
+    return px.scatter_map(
+        globals.vehicle_pos,
+        lat='latitude',
+        lon='longitude',
+        hover_name='Vehicle',
+        map_style=globals.mapbox_style,
+        size=[12],
+        width=100,
+        height=100,
+    )
+
 
 globals.vm = VehicleManager(
     region=1, brand=1, username=globals.USERNAME, password=globals.PASSWORD, pin=globals.PIN
@@ -127,7 +130,26 @@ def get_main_layout(prefix='main'):
                 target='_blank',
                 title='Google Maps link to location',
             ),
-            dash.dcc.Graph(id='map', figure=map_fig),
+            dash.dcc.Graph(
+                id='map',
+                figure=(
+                    lambda: (
+                        lambda fig: fig.update_layout(margin=dict(l=0, r=0, t=0, b=0)) or fig
+                    )(
+                        px.scatter_map(
+                            globals.vehicle_pos,
+                            lat='latitude',
+                            lon='longitude',
+                            hover_name='Vehicle',
+                            map_style=globals.mapbox_style,
+                            size=[12],
+                            width=600,
+                            height=600,
+                        )
+                    )
+                )(),
+                style={'width': '100%', 'height': '600px'},
+            ),
         ]
     )
 
@@ -247,4 +269,5 @@ def register_main_callbacks(app, prefix='main'):
             width=1000,
             height=1000,
         )
+        fig.update_layout(margin=dict(l=0, r=0, t=0, b=0))
         return lat_text, lon_text, url, fig
