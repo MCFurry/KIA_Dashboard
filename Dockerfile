@@ -9,5 +9,6 @@ RUN pip install \
     pandas \
     requests
 
-COPY KIA_Dashboard.py /KIA_Dashboard.py
+COPY *.py ./
+
 CMD ["python3", "KIA_Dashboard.py"]
