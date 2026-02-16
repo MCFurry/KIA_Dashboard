@@ -7,22 +7,24 @@ from hyundai_kia_connect_api import *
 import globals
 
 
-def create_map():
-    return px.scatter_map(
+globals.vm = VehicleManager(
+    region=1, brand=1, username=globals.USERNAME, password=globals.PASSWORD, pin=globals.PIN
+)
+
+def create_vehicle_map(width=600, height=600, zoom=13):
+    fig = px.scatter_map(
         globals.vehicle_pos,
         lat='latitude',
         lon='longitude',
         hover_name='Vehicle',
         map_style=globals.mapbox_style,
         size=[12],
-        width=100,
-        height=100,
+        width=width,
+        height=height,
+        zoom=zoom,
     )
-
-
-globals.vm = VehicleManager(
-    region=1, brand=1, username=globals.USERNAME, password=globals.PASSWORD, pin=globals.PIN
-)
+    fig.update_layout(margin=dict(l=0, r=0, t=0, b=0))
+    return fig
 
 
 def get_main_layout(prefix='main'):
@@ -131,28 +133,12 @@ def get_main_layout(prefix='main'):
                 title='Google Maps link to location',
             ),
             dash.dcc.Graph(
-                id='map',
-                figure=(
-                    lambda: (
-                        lambda fig: fig.update_layout(margin=dict(l=0, r=0, t=0, b=0)) or fig
-                    )(
-                        px.scatter_map(
-                            globals.vehicle_pos,
-                            lat='latitude',
-                            lon='longitude',
-                            hover_name='Vehicle',
-                            map_style=globals.mapbox_style,
-                            size=[12],
-                            width=600,
-                            height=600,
-                        )
-                    )
-                )(),
+                id=f'{prefix}-map',
+                figure=create_vehicle_map(),
                 style={'width': '100%', 'height': '600px'},
             ),
         ]
     )
-
 
 def register_main_callbacks(app, prefix='main'):
     # Callbacks
@@ -258,16 +244,5 @@ def register_main_callbacks(app, prefix='main'):
         lat_text = f'Latitude: {globals.vehicle_pos_num[0]}'
         lon_text = f'Longitude: {globals.vehicle_pos_num[1]}'
         url = f'https://maps.google.com/maps?q={globals.vehicle_pos_num[0]},{globals.vehicle_pos_num[1]}'
-        fig = px.scatter_map(
-            globals.vehicle_pos,
-            lat='latitude',
-            lon='longitude',
-            hover_name='Vehicle',
-            map_style=globals.mapbox_style,
-            zoom=13,
-            size=[12],
-            width=1000,
-            height=1000,
-        )
-        fig.update_layout(margin=dict(l=0, r=0, t=0, b=0))
+        fig = create_vehicle_map()
         return lat_text, lon_text, url, fig
