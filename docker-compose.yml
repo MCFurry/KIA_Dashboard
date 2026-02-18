@@ -18,6 +18,9 @@ services:
     networks:
       - influx-net
 
+    volumes:
+      - ./scheduled_slots.json:/scheduled_slots.json
+
 networks:
   influx-net:
     external: true
