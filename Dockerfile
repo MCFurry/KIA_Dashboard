@@ -6,6 +6,7 @@ RUN pip install \
     flask \
     hyundai-kia-connect-api \
     influxdb-client \
+    pytz \
     pandas \
     requests
 
