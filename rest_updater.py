@@ -74,16 +74,16 @@ def rest_updater():
                     Point('car_status')
                     .tag('car_id', car.id)
                     .time(car.last_updated_at)
-                    .field('12v_battery_percentage', car.car_battery_percentage)
-                    .field('engine_is_running', car.engine_is_running)
-                    .field('smart_key_battery_warning_is_on', car.smart_key_battery_warning_is_on)
-                    .field('washer_fluid_warning_is_on', car.washer_fluid_warning_is_on)
-                    .field('brake_fluid_warning_is_on', car.brake_fluid_warning_is_on)
-                    .field('air_control_is_on', car.air_control_is_on)
-                    .field('defrost_is_on', car.defrost_is_on)
-                    .field('steering_wheel_heater_is_on', car.steering_wheel_heater_is_on)
-                    .field('back_window_heater_is_on', car.back_window_heater_is_on)
-                    .field('side_mirror_heater_is_on', car.side_mirror_heater_is_on)
+                    .field('12v_battery_percentage', int(car.car_battery_percentage))
+                    .field('engine_is_running', int(car.engine_is_running))
+                    .field('smart_key_battery_warning_is_on', bool(car.smart_key_battery_warning_is_on))
+                    .field('washer_fluid_warning_is_on', int(car.washer_fluid_warning_is_on))
+                    .field('brake_fluid_warning_is_on', int(car.brake_fluid_warning_is_on))
+                    .field('air_control_is_on', int(car.air_control_is_on))
+                    .field('defrost_is_on', bool(car.defrost_is_on))
+                    .field('steering_wheel_heater_is_on', bool(car.steering_wheel_heater_is_on))
+                    .field('back_window_heater_is_on', bool(car.back_window_heater_is_on))
+                    .field('side_mirror_heater_is_on', bool(car.side_mirror_heater_is_on))
                     .field(
                         'front_left_seat_status',
                         True if car.front_left_seat_status == 'On' else False,
@@ -100,46 +100,46 @@ def rest_updater():
                         'rear_right_seat_status',
                         True if car.rear_right_seat_status == 'On' else False,
                     )
-                    .field('is_locked', car.is_locked)
-                    .field('front_left_door_is_open', car.front_left_door_is_open)
-                    .field('front_right_door_is_open', car.front_right_door_is_open)
-                    .field('back_left_door_is_open', car.back_left_door_is_open)
-                    .field('back_right_door_is_open', car.back_right_door_is_open)
-                    .field('trunk_is_open', car.trunk_is_open)
-                    .field('hood_is_open', car.hood_is_open)
-                    .field('front_left_window_is_open', car.front_left_window_is_open)
-                    .field('front_right_window_is_open', car.front_right_window_is_open)
-                    .field('back_left_window_is_open', car.back_left_window_is_open)
-                    .field('back_right_window_is_open', car.back_right_window_is_open)
-                    .field('tire_pressure_all_warning_is_on', car.tire_pressure_all_warning_is_on)
+                    .field('is_locked', bool(car.is_locked))
+                    .field('front_left_door_is_open', int(car.front_left_door_is_open))
+                    .field('front_right_door_is_open', int(car.front_right_door_is_open))
+                    .field('back_left_door_is_open', int(car.back_left_door_is_open))
+                    .field('back_right_door_is_open', int(car.back_right_door_is_open))
+                    .field('trunk_is_open', int(car.trunk_is_open))
+                    .field('hood_is_open', int(car.hood_is_open))
+                    .field('front_left_window_is_open', int(car.front_left_window_is_open))
+                    .field('front_right_window_is_open', int(car.front_right_window_is_open))
+                    .field('back_left_window_is_open', int(car.back_left_window_is_open))
+                    .field('back_right_window_is_open', int(car.back_right_window_is_open))
+                    .field('tire_pressure_all_warning_is_on', bool(car.tire_pressure_all_warning_is_on))
                     .field(
                         'tire_pressure_rear_left_warning_is_on',
-                        car.tire_pressure_rear_left_warning_is_on,
+                        bool(car.tire_pressure_rear_left_warning_is_on),
                     )
                     .field(
                         'tire_pressure_front_left_warning_is_on',
-                        car.tire_pressure_front_left_warning_is_on,
+                        bool(car.tire_pressure_front_left_warning_is_on),
                     )
                     .field(
                         'tire_pressure_front_right_warning_is_on',
-                        car.tire_pressure_front_right_warning_is_on,
+                        bool(car.tire_pressure_front_right_warning_is_on),
                     )
                     .field(
                         'tire_pressure_rear_right_warning_is_on',
-                        car.tire_pressure_rear_right_warning_is_on,
+                        bool(car.tire_pressure_rear_right_warning_is_on),
                     )
-                    .field('total_power_consumed', car.total_power_consumed)
-                    .field('total_power_regenerated', car.total_power_regenerated)
-                    .field('power_consumption_30d', car.power_consumption_30d)
-                    .field('ev_battery_percentage', car.ev_battery_percentage)
-                    .field('ev_battery_soh_percentage', car.ev_battery_soh_percentage)
-                    .field('ev_battery_is_charging', car.ev_battery_is_charging)
-                    .field('ev_battery_is_plugged_in', car.ev_battery_is_plugged_in)
-                    .field('location_latitude', car.location_latitude)
-                    .field('location_longitude', car.location_longitude)
-                    .field('odometer', car.odometer)
-                    .field('air_temperature', car.air_temperature)
-                    .field('ev_driving_range', car.ev_driving_range)
+                    .field('total_power_consumed', int(car.total_power_consumed))
+                    .field('total_power_regenerated', int(car.total_power_regenerated))
+                    .field('power_consumption_30d', int(car.power_consumption_30d))
+                    .field('ev_battery_percentage', int(car.ev_battery_percentage))
+                    .field('ev_battery_soh_percentage', int(car.ev_battery_soh_percentage))
+                    .field('ev_battery_is_charging', bool(car.ev_battery_is_charging))
+                    .field('ev_battery_is_plugged_in', int(car.ev_battery_is_plugged_in))
+                    .field('location_latitude', float(car.location_latitude))
+                    .field('location_longitude', float(car.location_longitude))
+                    .field('odometer', float(car.odometer))
+                    .field('air_temperature', str(car.air_temperature))
+                    .field('ev_driving_range', float(car.ev_driving_range))
                 )
                 influx_api.write(bucket=influx_bucket, record=p)
         except Exception as e:
